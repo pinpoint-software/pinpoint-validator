@@ -1,0 +1,24 @@
+{
+    "name": "pinpoint-software/validator",
+    "description": "Simple validation library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Andrew Shell",
+            "email": "andrew@andrewshell.org"
+        }
+    ],
+    "require": {
+       "php": ">=5.4.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Pinpoint\\Validator\\": "src/Pinpoint/Validator/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}
