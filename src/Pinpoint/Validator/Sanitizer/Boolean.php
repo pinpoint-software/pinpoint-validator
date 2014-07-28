@@ -5,6 +5,9 @@ class Boolean implements Sanitizer
 {
     public function sanitize($value)
     {
-        return boolvar($value);
+        if (is_string($value)) {
+            $value = (0 != strcmp(trim(strtolower($value)), 'false'));
+        }
+        return (bool) $value;
     }
 }
