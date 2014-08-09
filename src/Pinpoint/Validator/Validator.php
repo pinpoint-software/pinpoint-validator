@@ -18,7 +18,8 @@ class Validator
 
     public function sanitize($key, $sanitizer)
     {
-        $sanitizer = SanitizerFactory::create($sanitizer);
+        $params = array_slice(func_get_args(), 2);
+        $sanitizer = SanitizerFactory::create($sanitizer, $params);
         $this->fields[$key]->sanitize($sanitizer);
         if (!isset($this->sanitizers[$key])) {
             $this->sanitizers[$key] = array();
