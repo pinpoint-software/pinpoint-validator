@@ -1,7 +1,7 @@
 <?php
 namespace Pinpoint\Validator\Sanitizer;
 
-class Date implements Sanitizer
+class Callback implements Sanitizer
 {
     public function __construct($params)
     {
