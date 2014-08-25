@@ -21,7 +21,7 @@ class InArray extends AbstractContraint
         }
 
         if (false === $success) {
-            $this->error = $field->getLabel() . ' is not in array';
+            $this->error = new Error($field->getLabel() . ' is not in array', $this->message);
         }
 
         return $success;

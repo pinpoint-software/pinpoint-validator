@@ -1,6 +1,8 @@
 <?php
 namespace Pinpoint\Validator;
 
+use Exception;
+
 class Validator
 {
     protected $fields = array();
@@ -31,7 +33,9 @@ class Validator
     {
         $params = array_slice(func_get_args(), 2);
         $constraint = ConstraintFactory::create($constraint, $params);
-        if (false === $constraint->validate($this->fields[$key], $params)) {
+        if (!isset($this->fields[$key])) {
+            throw new Exception('Missing field ' . $key);
+        } elseif (false === $constraint->validate($this->fields[$key], $params)) {
             if (!isset($this->errors[$key])) {
                 $this->errors[$key] = array();
             }

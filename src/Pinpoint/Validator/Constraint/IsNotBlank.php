@@ -12,7 +12,7 @@ class IsNotBlank extends AbstractContraint
         if (is_numeric($value)) {
             return true;
         } elseif (empty($value)) {
-            $this->error = $field->getLabel() . ' cannot be blank';
+            $this->error = new Error($field->getLabel() . ' cannot be blank', $this->message);
             return false;
         }
 
