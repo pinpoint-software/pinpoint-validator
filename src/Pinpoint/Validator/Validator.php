@@ -48,6 +48,16 @@ class Validator
         return $constraint;
     }
 
+    public function checkForm($callback)
+    {
+        $params = array_slice(func_get_args(), 1);
+        if (is_callable($callback)) {
+            return call_user_func($callback, $this->fields, $params);
+        } else {
+            throw new Exception('checkForm expects a callback');
+        }
+    }
+
     public function isValid()
     {
         return empty($this->errors);
