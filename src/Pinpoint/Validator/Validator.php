@@ -2,6 +2,7 @@
 namespace Pinpoint\Validator;
 
 use Exception;
+use Pinpoint\Validator\Constraint\Error;
 
 class Validator
 {
@@ -77,6 +78,23 @@ class Validator
         return $this->errors;
     }
 
+    public function addError($key, $error)
+    {
+        if (!isset($this->errors[$key])) {
+            $this->errors[$key] = array();
+        }
+
+        if (is_string($error)) {
+            $error = new Error($error);
+        }
+
+        if ($error instanceof Error) {
+            $this->errors[$key][] = $error;
+        } else {
+            throw new Exception('Invalid error value');
+        }
+    }
+
     protected function resanitize($key)
     {
         if (isset($this->sanitizers[$key]) && is_array($this->sanitizers[$key])) {
@@ -91,10 +109,7 @@ class Validator
         if (isset($this->constraints[$key]) && is_array($this->constraints[$key])) {
             foreach (array_keys($this->constraints[$key]) as $c) {
                 if (false === $this->constraints[$key][$c]->validate($this->fields[$key])) {
-                    if (!isset($this->errors[$key])) {
-                        $this->errors[$key] = array();
-                    }
-                    $this->errors[$key][] = $this->constraints[$key][$c]->error();
+                    $this->addError($key, $this->constraints[$key][$c]->error());
                 }
             }
         }

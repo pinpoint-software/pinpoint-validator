@@ -8,7 +8,7 @@ class Error implements JsonSerializable
     protected $error;
     protected $message = false;
 
-    public function __construct($error, $message)
+    public function __construct($error, $message = false)
     {
         $this->error = $error;
         $this->message = $message;
